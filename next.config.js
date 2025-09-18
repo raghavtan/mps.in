@@ -2,10 +2,20 @@ const path = require("node:path");
 
 const LOADER = path.resolve(__dirname, 'src/visual-edits/component-tagger-loader.js');
 
+// This check ensures the paths are only applied for the production build
+const isProd = process.env.NODE_ENV === 'production';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: 'export',
+
+    // ✅ ADD THESE LINES for GitHub Pages deployment
+    basePath: isProd ? '/mps.in' : '',
+    assetPrefix: isProd ? '/mps.in' : '',
+
     images: {
+        // ✅ ADD THIS LINE for static exports
+        unoptimized: true,
         remotePatterns: [
             {
                 protocol: 'https',
