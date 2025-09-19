@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
     metadataBase: new URL("https://www.mps.in"),
@@ -83,19 +87,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         foundingDate: "1995",
     } as const;
 
-    const noFlashTheme = `(() => { try { const s = localStorage.getItem('theme'); const m = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; const dark = s ? s === 'dark' : m; const root = document.documentElement; dark ? root.classList.add('dark') : root.classList.remove('dark'); } catch (e) {} })();`;
-
     return (
         <html lang="en" suppressHydrationWarning>
         <head>
-            <script dangerouslySetInnerHTML={{ __html: noFlashTheme }} />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLdJson) }}
             />
         </head>
-        <body className="min-h-screen bg-background text-foreground antialiased">
-        {children}
+        <body className={`${inter.className} min-h-screen bg-background text-foreground antialiased`}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+            {children}
+        </ThemeProvider>
         </body>
         </html>
     );
