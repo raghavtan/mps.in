@@ -9,10 +9,6 @@ const isProd = process.env.NODE_ENV === 'production';
 const nextConfig = {
     output: 'export',
 
-    // ✅ ADD THESE LINES for GitHub Pages deployment
-    basePath: isProd ? '/mps.in' : '',
-    assetPrefix: isProd ? '/mps.in' : '',
-
     images: {
         // ✅ ADD THIS LINE for static exports
         unoptimized: true,
