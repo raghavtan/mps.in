@@ -42,9 +42,9 @@ export default function HomePage() {
     return (
         <div className="min-h-screen bg-background text-foreground">
             {/* Nav */}
-            <header className="fixed inset-x-0 top-0 z-50 border-b bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-md">
+            <header className="fixed inset-x-0 bottom-0 z-50 border-t bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-t-md md:top-0 md:border-b md:shadow-md">
                 <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6">
-                    <div className="flex items-center gap-3">
+                    <div className="hidden items-center gap-3 md:flex">
                         <div className="size-9 rounded-md bg-primary/10 grid place-items-center">
                             <span className="font-bold text-primary">MPS</span>
                         </div>
@@ -53,20 +53,24 @@ export default function HomePage() {
                             Since 1995
                         </Badge>
                     </div>
-                    <nav className="hidden items-center gap-6 md:flex">
-                        <button onClick={() => scrollTo("home")} className="text-sm font-medium hover:text-primary transition-colors">
-                            Home
+                    <nav className="flex w-full items-center justify-around gap-6 md:w-auto md:justify-center">
+                        <button onClick={() => scrollTo("home")} className="flex flex-col items-center text-sm font-medium hover:text-primary transition-colors">
+                            <CheckCircle2 className="size-5" />
+                            <span>Home</span>
                         </button>
-                        <button onClick={() => scrollTo("services")} className="text-sm font-medium hover:text-primary transition-colors">
-                            Services
+                        <button onClick={() => scrollTo("services")} className="flex flex-col items-center text-sm font-medium hover:text-primary transition-colors">
+                            <CheckCircle2 className="size-5" />
+                            <span>Services</span>
                         </button>
-                        <button onClick={() => scrollTo("work")} className="text-sm font-medium hover:text-primary transition-colors">
-                            Our Work
+                        <button onClick={() => scrollTo("work")} className="flex flex-col items-center text-sm font-medium hover:text-primary transition-colors">
+                            <CheckCircle2 className="size-5" />
+                            <span>Our Work</span>
                         </button>
-                        <button onClick={() => scrollTo("about")} className="text-sm font-medium hover:text-primary transition-colors">
-                            About
+                        <button onClick={() => scrollTo("about")} className="flex flex-col items-center text-sm font-medium hover:text-primary transition-colors">
+                            <CheckCircle2 className="size-5" />
+                            <span>About</span>
                         </button>
-                        <Button size="sm" onClick={() => scrollTo("contact")} variant="default">
+                        <Button size="sm" onClick={() => scrollTo("contact")} variant="default" className="hidden md:inline-flex">
                             Contact us
                         </Button>
                     </nav>
@@ -108,12 +112,9 @@ export default function HomePage() {
             <main>
                 {/* Hero */}
                 <section id="home" className="relative isolate overflow-hidden pt-24 sm:pt-32 md:pt-40">
-                    <div
-                        className="absolute inset-x-0 top-1/2 -z-10 -translate-y-1/2 transform-gpu overflow-hidden opacity-30 blur-3xl"
-                        aria-hidden="true"
-                    >
+                    <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
                         <div
-                            className="ml-[max(50%,38rem)] aspect-[1313/771] w-[82.0625rem] bg-gradient-to-tr from-primary to-primary/70"
+                            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-primary to-primary/70 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
                             style={{
                                 clipPath:
                                     'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
@@ -148,6 +149,15 @@ export default function HomePage() {
                             </div>
                         </motion.div>
                     </div>
+                    <div className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
+                        <div
+                            className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-primary to-primary/70 opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+                            style={{
+                                clipPath:
+                                    'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+                            }}
+                        />
+                    </div>
                 </section>
 
                 {/* Services */}
@@ -166,7 +176,7 @@ export default function HomePage() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
                         >
-                            <Card className="h-full shadow-lg">
+                            <Card className="h-full shadow-lg transition-all hover:shadow-xl">
                                 <CardHeader>
                                     <div className="mb-3 inline-flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                                         <CheckCircle2 className="size-6" />
@@ -198,7 +208,7 @@ export default function HomePage() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
                         >
-                            <Card className="h-full shadow-lg">
+                            <Card className="h-full shadow-lg transition-all hover:shadow-xl">
                                 <CardHeader>
                                     <div className="mb-3 inline-flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                                         <CheckCircle2 className="size-6" />
@@ -230,7 +240,7 @@ export default function HomePage() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
                         >
-                            <Card className="h-full shadow-lg">
+                            <Card className="h-full shadow-lg transition-all hover:shadow-xl">
                                 <CardHeader>
                                     <div className="mb-3 inline-flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                                         <CheckCircle2 className="size-6" />
@@ -268,31 +278,31 @@ export default function HomePage() {
                         </p>
                     </div>
                     <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                        <Card className="h-full shadow-lg">
+                        <Card className="h-full shadow-lg transition-all hover:shadow-xl">
                             <CardHeader>
                                 <CardTitle className="text-xl font-semibold">Smart Energy Management</CardTitle>
                             </CardHeader>
                             <CardContent className="text-muted-foreground">
                                 <p>An Industrial IoT solution for real-time energy monitoring and optimization.</p>
-                                <Button variant="link" className="px-0">Read case study</Button>
+                                <Button variant="link" className="px-0">Read case study <ArrowRight className="ml-2 size-4" /></Button>
                             </CardContent>
                         </Card>
-                        <Card className="h-full shadow-lg">
+                        <Card className="h-full shadow-lg transition-all hover:shadow-xl">
                             <CardHeader>
                                 <CardTitle className="text-xl font-semibold">Predictive Maintenance</CardTitle>
                             </CardHeader>
                             <CardContent className="text-muted-foreground">
                                 <p>Using machine learning to predict equipment failure and reduce downtime.</p>
-                                <Button variant="link" className="px-0">Read case study</Button>
+                                <Button variant="link" className="px-0">Read case study <ArrowRight className="ml-2 size-4" /></Button>
                             </CardContent>
                         </Card>
-                        <Card className="h-full shadow-lg">
+                        <Card className="h-full shadow-lg transition-all hover:shadow-xl">
                             <CardHeader>
                                 <CardTitle className="text-xl font-semibold">Cloud Migration</CardTitle>
                             </CardHeader>
                             <CardContent className="text-muted-foreground">
                                 <p>Migrating a legacy enterprise application to a modern, scalable cloud architecture.</p>
-                                <Button variant="link" className="px-0">Read case study</Button>
+                                <Button variant="link" className="px-0">Read case study <ArrowRight className="ml-2 size-4" /></Button>
                             </CardContent>
                         </Card>
                     </div>
@@ -312,28 +322,59 @@ export default function HomePage() {
                             <p className="text-muted-foreground text-lg">
                                 We've been building the future since before the internet was a household name. Our journey has taken us from the early days of email to the cutting edge of Industrial IoT.
                             </p>
-                            <ul className="mt-4 space-y-2 text-muted-foreground">
-                                <li><strong>1993:</strong> First email exchange via UUCP/ERNET (IIT Kanpur)</li>
-                                <li><strong>1995:</strong> Launched a free BBS and delivered our first commercial software</li>
-                                <li><strong>2004:</strong> Engineered a custom internet gateway, firewall, and mail server</li>
-                                <li><strong>2013:</strong> Deployed our first Industrial IoT solution for RPM logging</li>
-                                <li><strong>2023:</strong> Launched next-gen IIoT Edge devices with cloud integration</li>
-                            </ul>
+                            <div className="relative mt-4 space-y-6">
+                                <div className="absolute left-2 top-0 h-full w-0.5 bg-primary/20"></div>
+                                <div className="relative flex items-start">
+                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 size-4 rounded-full bg-primary"></div>
+                                    <div className="ml-8">
+                                        <h4 className="font-semibold">1993</h4>
+                                        <p className="text-muted-foreground">First email exchange via UUCP/ERNET (IIT Kanpur)</p>
+                                    </div>
+                                </div>
+                                <div className="relative flex items-start">
+                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 size-4 rounded-full bg-primary"></div>
+                                    <div className="ml-8">
+                                        <h4 className="font-semibold">1995</h4>
+                                        <p className="text-muted-foreground">Launched a free BBS and delivered our first commercial software</p>
+                                    </div>
+                                </div>
+                                <div className="relative flex items-start">
+                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 size-4 rounded-full bg-primary"></div>
+                                    <div className="ml-8">
+                                        <h4 className="font-semibold">2004</h4>
+                                        <p className="text-muted-foreground">Engineered a custom internet gateway, firewall, and mail server</p>
+                                    </div>
+                                </div>
+                                <div className="relative flex items-start">
+                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 size-4 rounded-full bg-primary"></div>
+                                    <div className="ml-8">
+                                        <h4 className="font-semibold">2013</h4>
+                                        <p className="text-muted-foreground">Deployed our first Industrial IoT solution for RPM logging</p>
+                                    </div>
+                                </div>
+                                <div className="relative flex items-start">
+                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 size-4 rounded-full bg-primary"></div>
+                                    <div className="ml-8">
+                                        <h4 className="font-semibold">2023</h4>
+                                        <p className="text-muted-foreground">Launched next-gen IIoT Edge devices with cloud integration</p>
+                                    </div>
+                                </div>
+                            </div>
                         </motion.div>
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="rounded-lg border p-4 text-center shadow-sm">
+                            <div className="rounded-lg border p-4 text-center shadow-sm transition-all hover:shadow-lg">
                                 <div className="text-2xl font-bold">30+</div>
                                 <div className="text-sm text-muted-foreground">Years of Experience</div>
                             </div>
-                            <div className="rounded-lg border p-4 text-center shadow-sm">
+                            <div className="rounded-lg border p-4 text-center shadow-sm transition-all hover:shadow-lg">
                                 <div className="text-2xl font-bold">50+</div>
                                 <div className="text-sm text-muted-foreground">Years of Combined Experience</div>
                             </div>
-                            <div className="rounded-lg border p-4 text-center shadow-sm">
+                            <div className="rounded-lg border p-4 text-center shadow-sm transition-all hover:shadow-lg">
                                 <div className="text-2xl font-bold">100+</div>
                                 <div className="text-sm text-muted-foreground">Projects Delivered</div>
                             </div>
-                            <div className="rounded-lg border p-4 text-center shadow-sm">
+                            <div className="rounded-lg border p-4 text-center shadow-sm transition-all hover:shadow-lg">
                                 <div className="text-2xl font-bold">20+</div>
                                 <div className="text-sm text-muted-foreground">Happy Clients</div>
                             </div>
@@ -375,7 +416,7 @@ export default function HomePage() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: 0.1 }}
-                            className="space-y-6 rounded-xl border p-6 shadow-lg"
+                            className="space-y-6 rounded-xl border p-6 shadow-lg transition-all hover:shadow-xl"
                         >
                             {isSubmitted ? (
                                 <div className="flex flex-col items-center justify-center h-full">
@@ -402,6 +443,7 @@ export default function HomePage() {
                                         <p className="text-xs text-muted-foreground">We respect your privacy.</p>
                                         <Button type="submit" variant="default" disabled={isSubmitting}>
                                             {isSubmitting ? "Sending..." : "Send message"}
+                                            <ArrowRight className="ml-2 size-4" />
                                         </Button>
                                     </div>
                                 </>
@@ -430,4 +472,3 @@ export default function HomePage() {
         </div>
     );
 }
-

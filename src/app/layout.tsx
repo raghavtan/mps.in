@@ -95,7 +95,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLdJson) }}
             />
         </head>
-        <body className={`${inter.className} min-h-screen bg-background text-foreground antialiased`}>
+        <body className={`${inter.className} min-h-screen bg-background text-foreground antialiased overflow-x-hidden`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             {children}
         </ThemeProvider>
