@@ -42,7 +42,7 @@ export default function HomePage() {
     return (
         <div className="min-h-screen bg-background text-foreground">
             {/* Nav */}
-            <header className="fixed inset-x-0 bottom-0 z-50 border-t bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-t-md md:top-0 md:border-b md:shadow-md">
+            <header className="fixed left-0 right-0 bottom-0 z-50 border-t bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/80 shadow-t-md md:top-0 md:bottom-auto md:border-t-0 md:border-b md:shadow-md md:bg-background md:backdrop-blur-none">
                 <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6">
                     <div className="hidden items-center gap-3 md:flex">
                         <div className="size-9 rounded-md bg-primary/10 grid place-items-center">
@@ -109,9 +109,9 @@ export default function HomePage() {
                 )}
             </header>
 
-            <main>
+            <main className="md:pt-32">
                 {/* Hero */}
-                <section id="home" className="relative isolate overflow-hidden pt-24 sm:pt-32 md:pt-40">
+                <section id="home" className="relative isolate overflow-hidden pt-24 sm:pt-32 md:pt-8">
                     <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
                         <div
                             className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-primary to-primary/70 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
