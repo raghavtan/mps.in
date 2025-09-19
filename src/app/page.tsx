@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
+import emailjs from "emailjs-com";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,6 +13,9 @@ import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function HomePage() {
     const [open, setOpen] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const form = useRef<HTMLFormElement>(null);
 
     const scrollTo = (id: string) => {
         const el = document.getElementById(id);
@@ -21,38 +25,52 @@ export default function HomePage() {
 
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Replace with your submit handler or API route
-        console.log("Thanks! We'll get back to you shortly.");
+        setIsSubmitting(true);
+
+        // Replace with your EmailJS service ID, template ID, and user ID
+        emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current!, 'YOUR_USER_ID')
+            .then((result) => {
+                console.log(result.text);
+                setIsSubmitted(true);
+                setIsSubmitting(false);
+            }, (error) => {
+                console.log(error.text);
+                setIsSubmitting(false);
+            });
     };
 
     return (
         <div className="min-h-screen bg-background text-foreground">
             {/* Nav */}
-            <header className="fixed inset-x-0 top-0 z-50 border-b bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <header className="fixed left-0 right-0 bottom-0 z-50 border-t bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/80 shadow-t-md md:top-0 md:bottom-auto md:border-t-0 md:border-b md:shadow-md md:bg-background md:backdrop-blur-none">
                 <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6">
-                    <div className="flex items-center gap-3">
+                    <div className="hidden items-center gap-3 md:flex">
                         <div className="size-9 rounded-md bg-primary/10 grid place-items-center">
                             <span className="font-bold text-primary">MPS</span>
                         </div>
-                        <span className="font-semibold tracking-tight">MPS Digital</span>
+                        <span className="font-semibold tracking-tight text-lg">MPS Digital</span>
                         <Badge className="ml-2 hidden sm:inline-flex" variant="secondary">
                             Since 1995
                         </Badge>
                     </div>
-                    <nav className="hidden items-center gap-6 md:flex">
-                        <button onClick={() => scrollTo("home")} className="text-sm hover:text-primary transition-colors">
-                            Home
+                    <nav className="flex w-full items-center justify-around gap-6 md:w-auto md:justify-center">
+                        <button onClick={() => scrollTo("home")} className="flex flex-col items-center text-sm font-medium hover:text-primary transition-colors">
+                            <CheckCircle2 className="size-5" />
+                            <span>Home</span>
                         </button>
-                        <button onClick={() => scrollTo("services")} className="text-sm hover:text-primary transition-colors">
-                            Services
+                        <button onClick={() => scrollTo("services")} className="flex flex-col items-center text-sm font-medium hover:text-primary transition-colors">
+                            <CheckCircle2 className="size-5" />
+                            <span>Services</span>
                         </button>
-                        <button onClick={() => scrollTo("documents")} className="text-sm hover:text-primary transition-colors">
-                            Documents
+                        <button onClick={() => scrollTo("work")} className="flex flex-col items-center text-sm font-medium hover:text-primary transition-colors">
+                            <CheckCircle2 className="size-5" />
+                            <span>Our Work</span>
                         </button>
-                        <button onClick={() => scrollTo("about")} className="text-sm hover:text-primary transition-colors">
-                            About
+                        <button onClick={() => scrollTo("about")} className="flex flex-col items-center text-sm font-medium hover:text-primary transition-colors">
+                            <CheckCircle2 className="size-5" />
+                            <span>About</span>
                         </button>
-                        <Button size="sm" onClick={() => scrollTo("contact")}>
+                        <Button size="sm" onClick={() => scrollTo("contact")} variant="default" className="hidden md:inline-flex">
                             Contact us
                         </Button>
                     </nav>
@@ -73,37 +91,37 @@ export default function HomePage() {
                             <div className="flex justify-end pb-2">
                                 <ThemeToggle />
                             </div>
-                            <button onClick={() => scrollTo("home")} className="py-2 text-left hover:text-primary">
+                            <button onClick={() => scrollTo("home")} className="py-2 text-left font-medium hover:text-primary">
                                 Home
                             </button>
-                            <button onClick={() => scrollTo("services")} className="py-2 text-left hover:text-primary">
+                            <button onClick={() => scrollTo("services")} className="py-2 text-left font-medium hover:text-primary">
                                 Services
                             </button>
-                            <button onClick={() => scrollTo("documents")} className="py-2 text-left hover:text-primary">
-                                Documents
+                            <button onClick={() => scrollTo("work")} className="py-2 text-left font-medium hover:text-primary">
+                                Our Work
                             </button>
-                            <button onClick={() => scrollTo("about")} className="py-2 text-left hover:text-primary">
+                            <button onClick={() => scrollTo("about")} className="py-2 text-left font-medium hover:text-primary">
                                 About
                             </button>
-                            <Button className="mt-2 w-full" onClick={() => scrollTo("contact")}>Contact us</Button>
+                            <Button className="mt-2 w-full" onClick={() => scrollTo("contact")} variant="default">Contact us</Button>
                         </div>
                     </div>
                 )}
             </header>
 
-            <main>
+            <main className="md:pt-32">
                 {/* Hero */}
-                <section id="home" className="relative isolate overflow-hidden pt-28 md:pt-32">
-                    <div
-                        className="absolute inset-0 -z-10 bg-cover bg-center"
-                        style={{
-                            backgroundImage:
-                                "url(https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1974&auto=format&fit=crop)",
-                        }}
-                    />
-                    <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/10 via-background/60 to-background" />
-
-                    <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-2 md:px-6 md:py-24">
+                <section id="home" className="relative isolate overflow-hidden pt-24 sm:pt-32 md:pt-8">
+                    <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
+                        <div
+                            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-primary to-primary/70 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+                            style={{
+                                clipPath:
+                                    'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+                            }}
+                        />
+                    </div>
+                    <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-10 md:grid-cols-1 md:px-6 md:py-16 text-center">
                         <motion.div
                             initial={{ opacity: 0, y: 12 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -111,188 +129,279 @@ export default function HomePage() {
                             transition={{ duration: 0.6, ease: "easeOut" }}
                             className="space-y-6"
                         >
-                            <Badge variant="secondary" className="px-3 py-1">Industrial IoT, Web Apps & DevOps</Badge>
-                            <h1 className="text-3xl font-semibold leading-tight md:text-5xl">
-                                MPS Digital — Your Partner in Digital Technologies
+                            <Badge variant="secondary" className="px-3 py-1 text-sm font-medium">
+                                Industrial IoT, Web Apps & DevOps
+                            </Badge>
+                            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+                                Build the Future, Today
                             </h1>
-                            <p className="text-muted-foreground md:text-lg">
-                                Based in Kanpur, India, we help organizations modernize with Industrial IoT, robust web applications, and DevOps. Nearly three decades of applied engineering across government and manufacturing.
+                            <p className="text-muted-foreground text-lg md:text-xl max-w-3xl mx-auto">
+                                We help organizations modernize with custom software, from Industrial IoT to robust web applications.
                             </p>
-                            <div className="flex flex-col gap-3 sm:flex-row">
-                                <Button size="lg" onClick={() => scrollTo("contact")}>
-                                    Start a project
+                            <div className="flex flex-col gap-3 sm:flex-row justify-center">
+                                <Button size="lg" onClick={() => scrollTo("contact")} variant="default">
+                                    Get in touch
                                     <ArrowRight className="ml-2 size-4" />
                                 </Button>
-                                <Button size="lg" variant="secondary" onClick={() => scrollTo("services")}>Our Services</Button>
-                            </div>
-                            <div className="flex items-center gap-3 pt-2 text-sm text-muted-foreground">
-                                <CheckCircle2 className="size-4 text-primary" /> 100% responsive
-                                <CheckCircle2 className="size-4 text-primary" /> Accessibility-first
-                                <CheckCircle2 className="size-4 text-primary" /> Lightning fast
+                                <Button size="lg" variant="outline" onClick={() => scrollTo("services")}>
+                                    Explore services
+                                </Button>
                             </div>
                         </motion.div>
-
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.98 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-                        >
-                            <div className="relative aspect-[4/3] overflow-hidden rounded-xl border bg-card shadow-sm">
-                                <img
-                                    src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1887&auto=format&fit=crop"
-                                    alt="Team collaborating in a modern workspace"
-                                    className="size-full object-cover"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-tr from-background/20 via-transparent to-background/10" />
-                            </div>
-                        </motion.div>
+                    </div>
+                    <div className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
+                        <div
+                            className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-primary to-primary/70 opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+                            style={{
+                                clipPath:
+                                    'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+                            }}
+                        />
                     </div>
                 </section>
 
                 {/* Services */}
-                <section id="services" className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+                <section id="services" className="mx-auto max-w-6xl px-4 py-16 sm:py-24 md:px-6">
                     <div className="mx-auto max-w-2xl text-center">
-                        <h2 className="text-2xl font-semibold md:text-4xl">What we do</h2>
+                        <h2 className="text-3xl font-bold sm:text-4xl">What we do</h2>
                         <p className="mt-3 text-muted-foreground md:text-lg">
-                            End-to-end solutions in Industrial IoT, Web Applications, and DevOps.
+                            We build custom software to solve your biggest challenges.
                         </p>
                     </div>
 
-                    <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                        {services.map((s) => (
-                            <motion.div
-                                key={s.title}
-                                initial={{ opacity: 0, y: 12 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.4, ease: "easeOut" }}
-                            >
-                                <Card className="h-full">
-                                    <CardHeader>
-                                        <div className="mb-2 inline-flex size-10 items-center justify-center rounded-md bg-primary/10 text-primary">
-                                            {<s.icon className="size-5" />}
-                                        </div>
-                                        <CardTitle>{s.title}</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="space-y-4">
-                                        <p className="text-sm text-muted-foreground">{s.description}</p>
-                                        <ul className="space-y-2 text-sm">
-                                            {s.points.map((pt) => (
-                                                <li key={pt} className="flex items-center gap-2">
-                                                    <CheckCircle2 className="size-4 text-primary" /> {pt}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </CardContent>
-                                </Card>
-                            </motion.div>
-                        ))}
+                    <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                        <motion.div
+                            initial={{ opacity: 0, y: 12 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.4, ease: "easeOut" }}
+                        >
+                            <Card className="h-full shadow-lg transition-all hover:shadow-xl">
+                                <CardHeader>
+                                    <div className="mb-3 inline-flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                                        <CheckCircle2 className="size-6" />
+                                    </div>
+                                    <CardTitle className="text-xl font-semibold">Web & Mobile Apps</CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    <p className="text-muted-foreground">Modern applications for web and mobile, built to scale.</p>
+                                    <ul className="space-y-2 text-sm">
+                                        <li className="flex items-center gap-2">
+                                            <CheckCircle2 className="size-4 text-primary" /> Full-stack development
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <CheckCircle2 className="size-4 text-primary" /> Geo-location and mapping
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <CheckCircle2 className="size-4 text-primary" /> Real-time data and APIs
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <CheckCircle2 className="size-4 text-primary" /> Legacy system modernization
+                                        </li>
+                                    </ul>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0, y: 12 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.4, ease: "easeOut" }}
+                        >
+                            <Card className="h-full shadow-lg transition-all hover:shadow-xl">
+                                <CardHeader>
+                                    <div className="mb-3 inline-flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                                        <CheckCircle2 className="size-6" />
+                                    </div>
+                                    <CardTitle className="text-xl font-semibold">Industrial IoT</CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    <p className="text-muted-foreground">Connect your operations to the cloud for real-time insights.</p>
+                                    <ul className="space-y-2 text-sm">
+                                        <li className="flex items-center gap-2">
+                                            <CheckCircle2 className="size-4 text-primary" /> Process monitoring and control
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <CheckCircle2 className="size-4 text-primary" /> Edge computing and Digital Twins
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <CheckCircle2 className="size-4 text-primary" /> Predictive analytics and alerts
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <CheckCircle2 className="size-4 text-primary" /> Custom hardware and firmware
+                                        </li>
+                                    </ul>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0, y: 12 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.4, ease: "easeOut" }}
+                        >
+                            <Card className="h-full shadow-lg transition-all hover:shadow-xl">
+                                <CardHeader>
+                                    <div className="mb-3 inline-flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                                        <CheckCircle2 className="size-6" />
+                                    </div>
+                                    <CardTitle className="text-xl font-semibold">Cloud & DevOps</CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    <p className="text-muted-foreground">Build, deploy, and scale your applications with confidence.</p>
+                                    <ul className="space-y-2 text-sm">
+                                        <li className="flex items-center gap-2">
+                                            <CheckCircle2 className="size-4 text-primary" /> Cloud architecture and migration
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <CheckCircle2 className="size-4 text-primary" /> CI/CD and automation
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <CheckCircle2 className="size-4 text-primary" /> Infrastructure as Code (IaC)
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <CheckCircle2 className="size-4 text-primary" /> Security and compliance
+                                        </li>
+                                    </ul>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
                     </div>
                 </section>
 
-                {/* Documents */}
-                <section id="documents" className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24 border-t">
+                {/* Our Work */}
+                <section id="work" className="mx-auto max-w-6xl px-4 py-16 sm:py-24 md:px-6 border-t">
                     <div className="mx-auto max-w-2xl text-center">
-                        <h2 className="text-2xl font-semibold md:text-4xl">Documents & Resources</h2>
+                        <h2 className="text-3xl font-bold sm:text-4xl">Our Work</h2>
                         <p className="mt-3 text-muted-foreground md:text-lg">
-                            White papers and case studies showcasing our Industrial IoT expertise.
+                            Explore how we've helped businesses like yours succeed.
                         </p>
                     </div>
-                    <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                        {[
-                            "Industry 4.0 and Industrial IoT with MPS Digital",
-                            "Industrial IoT for Smart Electrical Energy Management",
-                            "IIoT Operational Parameters and IoT Integration",
-                        ].map((doc) => (
-                            <Card key={doc} className="h-full">
-                                <CardHeader>
-                                    <CardTitle className="text-base">{doc}</CardTitle>
-                                </CardHeader>
-                                <CardContent className="text-sm text-muted-foreground">
-                                    Contact us at info@mps.in to request a copy.
-                                </CardContent>
-                            </Card>
-                        ))}
+                    <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                        <Card className="h-full shadow-lg transition-all hover:shadow-xl">
+                            <CardHeader>
+                                <CardTitle className="text-xl font-semibold">Smart Energy Management</CardTitle>
+                            </CardHeader>
+                            <CardContent className="text-muted-foreground">
+                                <p>An Industrial IoT solution for real-time energy monitoring and optimization.</p>
+                                <Button variant="link" className="px-0">Read case study <ArrowRight className="ml-2 size-4" /></Button>
+                            </CardContent>
+                        </Card>
+                        <Card className="h-full shadow-lg transition-all hover:shadow-xl">
+                            <CardHeader>
+                                <CardTitle className="text-xl font-semibold">Predictive Maintenance</CardTitle>
+                            </CardHeader>
+                            <CardContent className="text-muted-foreground">
+                                <p>Using machine learning to predict equipment failure and reduce downtime.</p>
+                                <Button variant="link" className="px-0">Read case study <ArrowRight className="ml-2 size-4" /></Button>
+                            </CardContent>
+                        </Card>
+                        <Card className="h-full shadow-lg transition-all hover:shadow-xl">
+                            <CardHeader>
+                                <CardTitle className="text-xl font-semibold">Cloud Migration</CardTitle>
+                            </CardHeader>
+                            <CardContent className="text-muted-foreground">
+                                <p>Migrating a legacy enterprise application to a modern, scalable cloud architecture.</p>
+                                <Button variant="link" className="px-0">Read case study <ArrowRight className="ml-2 size-4" /></Button>
+                            </CardContent>
+                        </Card>
                     </div>
                 </section>
 
                 {/* About */}
                 <section id="about" className="border-t bg-muted/30">
-                    <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24 grid gap-10 md:grid-cols-2">
+                    <div className="mx-auto max-w-6xl px-4 py-16 sm:py-24 md:px-6 grid gap-12 md:grid-cols-2 items-center">
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5 }}
-                            className="space-y-4"
+                            className="space-y-6"
                         >
-                            <h3 className="text-2xl font-semibold md:text-3xl">About MPS Digital</h3>
-                            <p className="text-muted-foreground">
-                                Founded in the pre-internet era, we have delivered secure networks, robust software, and industry-grade IoT systems for nearly 30 years. From UUCP-based email in 1993 to modern IIoT edge devices with cloud integration in 2023, our journey reflects deep, applied engineering.
+                            <h3 className="text-3xl font-bold sm:text-4xl">Decades of Innovation</h3>
+                            <p className="text-muted-foreground text-lg">
+                                We've been building the future since before the internet was a household name. Our journey has taken us from the early days of email to the cutting edge of Industrial IoT.
                             </p>
-                            <div className="grid grid-cols-3 gap-4">
-                                {[
-                                    { label: "Years", value: "30+" },
-                                    { label: "Team exp.", value: "50+ yrs" },
-                                    { label: "Clients", value: "India & abroad" },
-                                ].map((stat) => (
-                                    <div key={stat.label} className="rounded-lg border p-4 text-center">
-                                        <div className="text-xl font-semibold">{stat.value}</div>
-                                        <div className="text-xs text-muted-foreground">{stat.label}</div>
+                            <div className="relative mt-4 space-y-6">
+                                <div className="absolute left-2 top-0 h-full w-0.5 bg-primary/20"></div>
+                                <div className="relative flex items-start">
+                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 size-4 rounded-full bg-primary"></div>
+                                    <div className="ml-8">
+                                        <h4 className="font-semibold">1993</h4>
+                                        <p className="text-muted-foreground">First email exchange via UUCP/ERNET (IIT Kanpur)</p>
                                     </div>
-                                ))}
+                                </div>
+                                <div className="relative flex items-start">
+                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 size-4 rounded-full bg-primary"></div>
+                                    <div className="ml-8">
+                                        <h4 className="font-semibold">1995</h4>
+                                        <p className="text-muted-foreground">Launched a free BBS and delivered our first commercial software</p>
+                                    </div>
+                                </div>
+                                <div className="relative flex items-start">
+                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 size-4 rounded-full bg-primary"></div>
+                                    <div className="ml-8">
+                                        <h4 className="font-semibold">2004</h4>
+                                        <p className="text-muted-foreground">Engineered a custom internet gateway, firewall, and mail server</p>
+                                    </div>
+                                </div>
+                                <div className="relative flex items-start">
+                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 size-4 rounded-full bg-primary"></div>
+                                    <div className="ml-8">
+                                        <h4 className="font-semibold">2013</h4>
+                                        <p className="text-muted-foreground">Deployed our first Industrial IoT solution for RPM logging</p>
+                                    </div>
+                                </div>
+                                <div className="relative flex items-start">
+                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 size-4 rounded-full bg-primary"></div>
+                                    <div className="ml-8">
+                                        <h4 className="font-semibold">2023</h4>
+                                        <p className="text-muted-foreground">Launched next-gen IIoT Edge devices with cloud integration</p>
+                                    </div>
+                                </div>
                             </div>
-                            <ul className="mt-2 space-y-2 text-sm text-muted-foreground">
-                                <li>• 1993: First email exchange via UUCP/ERNET (IIT Kanpur)</li>
-                                <li>• 1995: Free BBS and first commercial software delivery</li>
-                                <li>• 2004: Internet gateway + firewall + mail server</li>
-                                <li>• 2013: First Industrial IoT (RPM logging)</li>
-                                <li>• 2023: IIoT Edge devices with Cloud integration</li>
-                            </ul>
                         </motion.div>
-
-                        <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
-                            className="space-y-4"
-                        >
-                            <div className="overflow-hidden rounded-xl border">
-                                <img
-                                    src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1887&auto=format&fit=crop"
-                                    alt="Our team at work"
-                                    className="aspect-video w-full object-cover"
-                                />
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="rounded-lg border p-4 text-center shadow-sm transition-all hover:shadow-lg">
+                                <div className="text-2xl font-bold">30+</div>
+                                <div className="text-sm text-muted-foreground">Years of Experience</div>
                             </div>
-                            <p className="text-muted-foreground">
-                                We believe in thoughtful design, clean code, and sustainable growth. Let's build something great together.
-                            </p>
-                        </motion.div>
+                            <div className="rounded-lg border p-4 text-center shadow-sm transition-all hover:shadow-lg">
+                                <div className="text-2xl font-bold">50+</div>
+                                <div className="text-sm text-muted-foreground">Years of Combined Experience</div>
+                            </div>
+                            <div className="rounded-lg border p-4 text-center shadow-sm transition-all hover:shadow-lg">
+                                <div className="text-2xl font-bold">100+</div>
+                                <div className="text-sm text-muted-foreground">Projects Delivered</div>
+                            </div>
+                            <div className="rounded-lg border p-4 text-center shadow-sm transition-all hover:shadow-lg">
+                                <div className="text-2xl font-bold">20+</div>
+                                <div className="text-sm text-muted-foreground">Happy Clients</div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
                 {/* Contact */}
-                <section id="contact" className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
-                    <div className="grid gap-10 md:grid-cols-2">
+                <section id="contact" className="mx-auto max-w-6xl px-4 py-16 sm:py-24 md:px-6">
+                    <div className="grid gap-12 md:grid-cols-2">
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5 }}
-                            className="space-y-4"
+                            className="space-y-6"
                         >
-                            <h3 className="text-2xl font-semibold md:text-3xl">Let's talk</h3>
-                            <p className="text-muted-foreground">
-                                Tell us about your project. We'll get back within 1 business day.
+                            <h3 className="text-3xl font-bold sm:text-4xl">Let's build something great together</h3>
+                            <p className="text-muted-foreground text-lg">
+                                Have a project in mind? We'd love to hear from you.
                             </p>
-                            <div className="flex flex-col gap-3 text-sm">
-                                <a href="tel:+919005670232" className="inline-flex items-center gap-2 hover:text-primary">
-                                    <Phone className="size-4" /> +91-9005670232
+                            <div className="flex flex-col gap-4 text-lg">
+                                <a href="tel:+919005670232" className="inline-flex items-center gap-3 hover:text-primary">
+                                    <Phone className="size-5" /> +91-9005670232
                                 </a>
-                                <a href="mailto:info@mps.in" className="inline-flex items-center gap-2 hover:text-primary">
-                                    <Mail className="size-4" /> info@mps.in
+                                <a href="mailto:info@mps.in" className="inline-flex items-center gap-3 hover:text-primary">
+                                    <Mail className="size-5" /> info@mps.in
                                 </a>
                                 <div className="text-muted-foreground">
                                     254, Block H-1, Pandunagar, Kanpur 208005 (INDIA)
@@ -301,31 +410,44 @@ export default function HomePage() {
                         </motion.div>
 
                         <motion.form
+                            ref={form}
                             onSubmit={onSubmit}
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: 0.1 }}
-                            className="space-y-4 rounded-xl border p-4 md:p-6"
+                            className="space-y-6 rounded-xl border p-6 shadow-lg transition-all hover:shadow-xl"
                         >
-                            <div className="grid gap-4 md:grid-cols-2">
-                                <div className="grid gap-2">
-                                    <label className="text-sm" htmlFor="name">Name</label>
-                                    <Input id="name" name="name" placeholder="Jane Doe" required />
+                            {isSubmitted ? (
+                                <div className="flex flex-col items-center justify-center h-full">
+                                    <CheckCircle2 className="size-12 text-green-500" />
+                                    <p className="mt-4 text-lg">Thanks! We'll be in touch soon.</p>
                                 </div>
-                                <div className="grid gap-2">
-                                    <label className="text-sm" htmlFor="email">Email</label>
-                                    <Input id="email" name="email" type="email" placeholder="jane@company.com" required />
-                                </div>
-                            </div>
-                            <div className="grid gap-2">
-                                <label className="text-sm" htmlFor="message">Project details</label>
-                                <Textarea id="message" name="message" placeholder="Tell us what you have in mind..." rows={5} required />
-                            </div>
-                            <div className="flex items-center justify-between gap-3">
-                                <p className="text-xs text-muted-foreground">By submitting, you agree to our terms.</p>
-                                <Button type="submit">Send message</Button>
-                            </div>
+                            ) : (
+                                <>
+                                    <div className="grid gap-6 sm:grid-cols-2">
+                                        <div className="grid gap-2">
+                                            <label className="text-sm font-medium" htmlFor="name">Name</label>
+                                            <Input id="name" name="name" placeholder="Jane Doe" required />
+                                        </div>
+                                        <div className="grid gap-2">
+                                            <label className="text-sm font-medium" htmlFor="email">Email</label>
+                                            <Input id="email" name="email" type="email" placeholder="jane@company.com" required />
+                                        </div>
+                                    </div>
+                                    <div className="grid gap-2">
+                                        <label className="text-sm font-medium" htmlFor="message">How can we help?</label>
+                                        <Textarea id="message" name="message" placeholder="Tell us about your project..." rows={5} required />
+                                    </div>
+                                    <div className="flex items-center justify-between gap-3">
+                                        <p className="text-xs text-muted-foreground">We respect your privacy.</p>
+                                        <Button type="submit" variant="default" disabled={isSubmitting}>
+                                            {isSubmitting ? "Sending..." : "Send message"}
+                                            <ArrowRight className="ml-2 size-4" />
+                                        </Button>
+                                    </div>
+                                </>
+                            )}
                         </motion.form>
                     </div>
                 </section>
@@ -341,78 +463,12 @@ export default function HomePage() {
                         <span>© {new Date().getFullYear()} MPS Digital. All rights reserved.</span>
                     </div>
                     <div className="flex gap-4">
-                        <button onClick={() => scrollTo("home")} className="hover:text-primary">Home</button>
-                        <button onClick={() => scrollTo("services")} className="hover:text-primary">Services</button>
-                        <button onClick={() => scrollTo("documents")} className="hover:text-primary">Documents</button>
-                        <button onClick={() => scrollTo("about")} className="hover:text-primary">About</button>
-                        <button onClick={() => scrollTo("contact")} className="hover:text-primary">Contact</button>
+                        <a href="#" className="hover:text-primary font-medium">Twitter</a>
+                        <a href="#" className="hover:text-primary font-medium">LinkedIn</a>
+                        <a href="#" className="hover:text-primary font-medium">GitHub</a>
                     </div>
                 </div>
             </footer>
         </div>
     );
 }
-
-const services = [
-    {
-        title: "Web Application Development",
-        description:
-            "Business and enterprise applications with modern stacks.",
-        points: [
-            "PHP/Laravel & Python/Django",
-            "Geo-location enabled apps",
-            "MySQL, MongoDB & NoSQL",
-            "APIs & Microservices",
-        ],
-        icon: CheckCircle2,
-    },
-    {
-        title: "Automation, IoT & IIoT",
-        description:
-            "From plant-floor telemetry to cloud dashboards and alerts.",
-        points: [
-            "Industrial process monitoring",
-            "Digital Twins & Edge Computing",
-            "Visualization, reports & predictive analysis",
-            "Embedded & remote monitoring",
-        ],
-        icon: CheckCircle2,
-    },
-    {
-        title: "System Architecture & Integration",
-        description:
-            "Design and integrate complex business systems and networks.",
-        points: [
-            "Enterprise application architecture",
-            "Corporate networks & cloud planning",
-            "Protocol and platform integration",
-            "Legacy to microservices transformation",
-        ],
-        icon: CheckCircle2,
-    },
-    {
-        title: "IT Infrastructure & DevOps",
-        description:
-            "Secure, scalable infrastructure with modern delivery practices.",
-        points: [
-            "Linux servers & cloud administration",
-            "DevOps consulting & development",
-            "CI/CD pipelines",
-        ],
-        icon: CheckCircle2,
-    },
-    {
-        title: "Human Machine Technologies",
-        description:
-            "Interfaces for voice, identity, and operations.",
-        points: ["VoIP & IVRS", "Biometric systems"],
-        icon: CheckCircle2,
-    },
-    {
-        title: "Data Migration",
-        description:
-            "Analyze and convert large datasets from legacy systems.",
-        points: ["Assessment & planning", "ETL & validation"],
-        icon: CheckCircle2,
-    },
-] as const;
