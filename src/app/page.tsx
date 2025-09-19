@@ -28,31 +28,31 @@ export default function HomePage() {
     return (
         <div className="min-h-screen bg-background text-foreground">
             {/* Nav */}
-            <header className="fixed inset-x-0 top-0 z-50 border-b bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <header className="fixed inset-x-0 top-0 z-50 border-b bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-md">
                 <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6">
                     <div className="flex items-center gap-3">
                         <div className="size-9 rounded-md bg-primary/10 grid place-items-center">
                             <span className="font-bold text-primary">MPS</span>
                         </div>
-                        <span className="font-semibold tracking-tight">MPS Digital</span>
+                        <span className="font-semibold tracking-tight text-lg">MPS Digital</span>
                         <Badge className="ml-2 hidden sm:inline-flex" variant="secondary">
                             Since 1995
                         </Badge>
                     </div>
                     <nav className="hidden items-center gap-6 md:flex">
-                        <button onClick={() => scrollTo("home")} className="text-sm hover:text-primary transition-colors">
+                        <button onClick={() => scrollTo("home")} className="text-sm font-medium hover:text-primary transition-colors">
                             Home
                         </button>
-                        <button onClick={() => scrollTo("services")} className="text-sm hover:text-primary transition-colors">
+                        <button onClick={() => scrollTo("services")} className="text-sm font-medium hover:text-primary transition-colors">
                             Services
                         </button>
-                        <button onClick={() => scrollTo("documents")} className="text-sm hover:text-primary transition-colors">
+                        <button onClick={() => scrollTo("documents")} className="text-sm font-medium hover:text-primary transition-colors">
                             Documents
                         </button>
-                        <button onClick={() => scrollTo("about")} className="text-sm hover:text-primary transition-colors">
+                        <button onClick={() => scrollTo("about")} className="text-sm font-medium hover:text-primary transition-colors">
                             About
                         </button>
-                        <Button size="sm" onClick={() => scrollTo("contact")}>
+                        <Button size="sm" onClick={() => scrollTo("contact")} variant="default">
                             Contact us
                         </Button>
                     </nav>
@@ -73,19 +73,19 @@ export default function HomePage() {
                             <div className="flex justify-end pb-2">
                                 <ThemeToggle />
                             </div>
-                            <button onClick={() => scrollTo("home")} className="py-2 text-left hover:text-primary">
+                            <button onClick={() => scrollTo("home")} className="py-2 text-left font-medium hover:text-primary">
                                 Home
                             </button>
-                            <button onClick={() => scrollTo("services")} className="py-2 text-left hover:text-primary">
+                            <button onClick={() => scrollTo("services")} className="py-2 text-left font-medium hover:text-primary">
                                 Services
                             </button>
-                            <button onClick={() => scrollTo("documents")} className="py-2 text-left hover:text-primary">
+                            <button onClick={() => scrollTo("documents")} className="py-2 text-left font-medium hover:text-primary">
                                 Documents
                             </button>
-                            <button onClick={() => scrollTo("about")} className="py-2 text-left hover:text-primary">
+                            <button onClick={() => scrollTo("about")} className="py-2 text-left font-medium hover:text-primary">
                                 About
                             </button>
-                            <Button className="mt-2 w-full" onClick={() => scrollTo("contact")}>Contact us</Button>
+                            <Button className="mt-2 w-full" onClick={() => scrollTo("contact")} variant="default">Contact us</Button>
                         </div>
                     </div>
                 )}
@@ -93,17 +93,8 @@ export default function HomePage() {
 
             <main>
                 {/* Hero */}
-                <section id="home" className="relative isolate overflow-hidden pt-28 md:pt-32">
-                    <div
-                        className="absolute inset-0 -z-10 bg-cover bg-center"
-                        style={{
-                            backgroundImage:
-                                "url(https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1974&auto=format&fit=crop)",
-                        }}
-                    />
-                    <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/10 via-background/60 to-background" />
-
-                    <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-2 md:px-6 md:py-24">
+                <section id="home" className="relative isolate overflow-hidden pt-32 md:pt-40">
+                    <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-1 md:px-6 md:py-24 text-center">
                         <motion.div
                             initial={{ opacity: 0, y: 12 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -111,40 +102,19 @@ export default function HomePage() {
                             transition={{ duration: 0.6, ease: "easeOut" }}
                             className="space-y-6"
                         >
-                            <Badge variant="secondary" className="px-3 py-1">Industrial IoT, Web Apps & DevOps</Badge>
-                            <h1 className="text-3xl font-semibold leading-tight md:text-5xl">
+                            <Badge variant="secondary" className="px-3 py-1 text-sm">Industrial IoT, Web Apps & DevOps</Badge>
+                            <h1 className="text-4xl font-bold leading-tight md:text-6xl">
                                 MPS Digital — Your Partner in Digital Technologies
                             </h1>
-                            <p className="text-muted-foreground md:text-lg">
+                            <p className="text-muted-foreground md:text-xl max-w-3xl mx-auto">
                                 Based in Kanpur, India, we help organizations modernize with Industrial IoT, robust web applications, and DevOps. Nearly three decades of applied engineering across government and manufacturing.
                             </p>
-                            <div className="flex flex-col gap-3 sm:flex-row">
-                                <Button size="lg" onClick={() => scrollTo("contact")}>
+                            <div className="flex flex-col gap-3 sm:flex-row justify-center">
+                                <Button size="lg" onClick={() => scrollTo("contact")} variant="default">
                                     Start a project
                                     <ArrowRight className="ml-2 size-4" />
                                 </Button>
-                                <Button size="lg" variant="secondary" onClick={() => scrollTo("services")}>Our Services</Button>
-                            </div>
-                            <div className="flex items-center gap-3 pt-2 text-sm text-muted-foreground">
-                                <CheckCircle2 className="size-4 text-primary" /> 100% responsive
-                                <CheckCircle2 className="size-4 text-primary" /> Accessibility-first
-                                <CheckCircle2 className="size-4 text-primary" /> Lightning fast
-                            </div>
-                        </motion.div>
-
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.98 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-                        >
-                            <div className="relative aspect-[4/3] overflow-hidden rounded-xl border bg-card shadow-sm">
-                                <img
-                                    src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1887&auto=format&fit=crop"
-                                    alt="Team collaborating in a modern workspace"
-                                    className="size-full object-cover"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-tr from-background/20 via-transparent to-background/10" />
+                                <Button size="lg" variant="outline" onClick={() => scrollTo("services")}>Our Services</Button>
                             </div>
                         </motion.div>
                     </div>
@@ -153,13 +123,13 @@ export default function HomePage() {
                 {/* Services */}
                 <section id="services" className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
                     <div className="mx-auto max-w-2xl text-center">
-                        <h2 className="text-2xl font-semibold md:text-4xl">What we do</h2>
+                        <h2 className="text-3xl font-bold md:text-4xl">What we do</h2>
                         <p className="mt-3 text-muted-foreground md:text-lg">
                             End-to-end solutions in Industrial IoT, Web Applications, and DevOps.
                         </p>
                     </div>
 
-                    <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                         {services.map((s) => (
                             <motion.div
                                 key={s.title}
@@ -168,15 +138,15 @@ export default function HomePage() {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.4, ease: "easeOut" }}
                             >
-                                <Card className="h-full">
+                                <Card className="h-full shadow-lg">
                                     <CardHeader>
-                                        <div className="mb-2 inline-flex size-10 items-center justify-center rounded-md bg-primary/10 text-primary">
-                                            {<s.icon className="size-5" />}
+                                        <div className="mb-3 inline-flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                                            {<s.icon className="size-6" />}
                                         </div>
-                                        <CardTitle>{s.title}</CardTitle>
+                                        <CardTitle className="text-xl font-semibold">{s.title}</CardTitle>
                                     </CardHeader>
                                     <CardContent className="space-y-4">
-                                        <p className="text-sm text-muted-foreground">{s.description}</p>
+                                        <p className="text-muted-foreground">{s.description}</p>
                                         <ul className="space-y-2 text-sm">
                                             {s.points.map((pt) => (
                                                 <li key={pt} className="flex items-center gap-2">
@@ -194,22 +164,22 @@ export default function HomePage() {
                 {/* Documents */}
                 <section id="documents" className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24 border-t">
                     <div className="mx-auto max-w-2xl text-center">
-                        <h2 className="text-2xl font-semibold md:text-4xl">Documents & Resources</h2>
+                        <h2 className="text-3xl font-bold md:text-4xl">Documents & Resources</h2>
                         <p className="mt-3 text-muted-foreground md:text-lg">
                             White papers and case studies showcasing our Industrial IoT expertise.
                         </p>
                     </div>
-                    <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                         {[
                             "Industry 4.0 and Industrial IoT with MPS Digital",
                             "Industrial IoT for Smart Electrical Energy Management",
                             "IIoT Operational Parameters and IoT Integration",
                         ].map((doc) => (
-                            <Card key={doc} className="h-full">
+                            <Card key={doc} className="h-full shadow-lg">
                                 <CardHeader>
-                                    <CardTitle className="text-base">{doc}</CardTitle>
+                                    <CardTitle className="text-xl font-semibold">{doc}</CardTitle>
                                 </CardHeader>
-                                <CardContent className="text-sm text-muted-foreground">
+                                <CardContent className="text-muted-foreground">
                                     Contact us at info@mps.in to request a copy.
                                 </CardContent>
                             </Card>
@@ -219,16 +189,16 @@ export default function HomePage() {
 
                 {/* About */}
                 <section id="about" className="border-t bg-muted/30">
-                    <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24 grid gap-10 md:grid-cols-2">
+                    <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24 grid gap-12 md:grid-cols-2 items-center">
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5 }}
-                            className="space-y-4"
+                            className="space-y-6"
                         >
-                            <h3 className="text-2xl font-semibold md:text-3xl">About MPS Digital</h3>
-                            <p className="text-muted-foreground">
+                            <h3 className="text-3xl font-bold md:text-4xl">About MPS Digital</h3>
+                            <p className="text-muted-foreground text-lg">
                                 Founded in the pre-internet era, we have delivered secure networks, robust software, and industry-grade IoT systems for nearly 30 years. From UUCP-based email in 1993 to modern IIoT edge devices with cloud integration in 2023, our journey reflects deep, applied engineering.
                             </p>
                             <div className="grid grid-cols-3 gap-4">
@@ -237,13 +207,13 @@ export default function HomePage() {
                                     { label: "Team exp.", value: "50+ yrs" },
                                     { label: "Clients", value: "India & abroad" },
                                 ].map((stat) => (
-                                    <div key={stat.label} className="rounded-lg border p-4 text-center">
-                                        <div className="text-xl font-semibold">{stat.value}</div>
-                                        <div className="text-xs text-muted-foreground">{stat.label}</div>
+                                    <div key={stat.label} className="rounded-lg border p-4 text-center shadow-sm">
+                                        <div className="text-2xl font-bold">{stat.value}</div>
+                                        <div className="text-sm text-muted-foreground">{stat.label}</div>
                                     </div>
                                 ))}
                             </div>
-                            <ul className="mt-2 space-y-2 text-sm text-muted-foreground">
+                            <ul className="mt-4 space-y-2 text-muted-foreground">
                                 <li>• 1993: First email exchange via UUCP/ERNET (IIT Kanpur)</li>
                                 <li>• 1995: Free BBS and first commercial software delivery</li>
                                 <li>• 2004: Internet gateway + firewall + mail server</li>
@@ -251,48 +221,30 @@ export default function HomePage() {
                                 <li>• 2023: IIoT Edge devices with Cloud integration</li>
                             </ul>
                         </motion.div>
-
-                        <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
-                            className="space-y-4"
-                        >
-                            <div className="overflow-hidden rounded-xl border">
-                                <img
-                                    src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1887&auto=format&fit=crop"
-                                    alt="Our team at work"
-                                    className="aspect-video w-full object-cover"
-                                />
-                            </div>
-                            <p className="text-muted-foreground">
-                                We believe in thoughtful design, clean code, and sustainable growth. Let's build something great together.
-                            </p>
-                        </motion.div>
+                        <div></div>
                     </div>
                 </section>
 
                 {/* Contact */}
                 <section id="contact" className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
-                    <div className="grid gap-10 md:grid-cols-2">
+                    <div className="grid gap-12 md:grid-cols-2">
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5 }}
-                            className="space-y-4"
+                            className="space-y-6"
                         >
-                            <h3 className="text-2xl font-semibold md:text-3xl">Let's talk</h3>
-                            <p className="text-muted-foreground">
+                            <h3 className="text-3xl font-bold md:text-4xl">Let's talk</h3>
+                            <p className="text-muted-foreground text-lg">
                                 Tell us about your project. We'll get back within 1 business day.
                             </p>
-                            <div className="flex flex-col gap-3 text-sm">
-                                <a href="tel:+919005670232" className="inline-flex items-center gap-2 hover:text-primary">
-                                    <Phone className="size-4" /> +91-9005670232
+                            <div className="flex flex-col gap-4 text-lg">
+                                <a href="tel:+919005670232" className="inline-flex items-center gap-3 hover:text-primary">
+                                    <Phone className="size-5" /> +91-9005670232
                                 </a>
-                                <a href="mailto:info@mps.in" className="inline-flex items-center gap-2 hover:text-primary">
-                                    <Mail className="size-4" /> info@mps.in
+                                <a href="mailto:info@mps.in" className="inline-flex items-center gap-3 hover:text-primary">
+                                    <Mail className="size-5" /> info@mps.in
                                 </a>
                                 <div className="text-muted-foreground">
                                     254, Block H-1, Pandunagar, Kanpur 208005 (INDIA)
@@ -306,25 +258,25 @@ export default function HomePage() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: 0.1 }}
-                            className="space-y-4 rounded-xl border p-4 md:p-6"
+                            className="space-y-6 rounded-xl border p-6 shadow-lg"
                         >
-                            <div className="grid gap-4 md:grid-cols-2">
+                            <div className="grid gap-6 md:grid-cols-2">
                                 <div className="grid gap-2">
-                                    <label className="text-sm" htmlFor="name">Name</label>
+                                    <label className="text-sm font-medium" htmlFor="name">Name</label>
                                     <Input id="name" name="name" placeholder="Jane Doe" required />
                                 </div>
                                 <div className="grid gap-2">
-                                    <label className="text-sm" htmlFor="email">Email</label>
+                                    <label className="text-sm font-medium" htmlFor="email">Email</label>
                                     <Input id="email" name="email" type="email" placeholder="jane@company.com" required />
                                 </div>
                             </div>
                             <div className="grid gap-2">
-                                <label className="text-sm" htmlFor="message">Project details</label>
+                                <label className="text-sm font-medium" htmlFor="message">Project details</label>
                                 <Textarea id="message" name="message" placeholder="Tell us what you have in mind..." rows={5} required />
                             </div>
                             <div className="flex items-center justify-between gap-3">
                                 <p className="text-xs text-muted-foreground">By submitting, you agree to our terms.</p>
-                                <Button type="submit">Send message</Button>
+                                <Button type="submit" variant="default">Send message</Button>
                             </div>
                         </motion.form>
                     </div>
@@ -341,11 +293,11 @@ export default function HomePage() {
                         <span>© {new Date().getFullYear()} MPS Digital. All rights reserved.</span>
                     </div>
                     <div className="flex gap-4">
-                        <button onClick={() => scrollTo("home")} className="hover:text-primary">Home</button>
-                        <button onClick={() => scrollTo("services")} className="hover:text-primary">Services</button>
-                        <button onClick={() => scrollTo("documents")} className="hover:text-primary">Documents</button>
-                        <button onClick={() => scrollTo("about")} className="hover:text-primary">About</button>
-                        <button onClick={() => scrollTo("contact")} className="hover:text-primary">Contact</button>
+                        <button onClick={() => scrollTo("home")} className="hover:text-primary font-medium">Home</button>
+                        <button onClick={() => scrollTo("services")} className="hover:text-primary font-medium">Services</button>
+                        <button onClick={() => scrollTo("documents")} className="hover:text-primary font-medium">Documents</button>
+                        <button onClick={() => scrollTo("about")} className="hover:text-primary font-medium">About</button>
+                        <button onClick={() => scrollTo("contact")} className="hover:text-primary font-medium">Contact</button>
                     </div>
                 </div>
             </footer>
